@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 const cors = require("cors");
 const {info} = require("./run-code/info");
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
@@ -22,14 +23,35 @@ const sendResponse = (res, statusCode, body) => {
     })
 }
 
+
+
 app.post("/", async (req, res) => {
+
+
     try {
         const output = await runCode(req.body)
         sendResponse(res, 200, output)
     } catch (err) {
         sendResponse(res, err?.status || 500, err)
     }
-})
+});
+
+app.post("/solution/addOperators", async (req, res) => {
+
+    const testCases = [
+        { input: "123", expectedOutput: 6 },
+        { input: "232", expectedOutput: 8 },
+        { input: "3456237490", expectedOutput: 9191 }
+    ]
+
+    try {
+        const output = await runCode(req.body)
+        sendResponse(res, 200, output)
+    } catch (err) {
+        sendResponse(res, err?.status || 500, err)
+    }
+});
+
 
 app.get('/list', async (req, res) => {
     const body = []
@@ -44,4 +66,4 @@ app.get('/list', async (req, res) => {
     sendResponse(res, 200, {supportedLanguages: body})
 })
 
-app.listen(port);
+app.listen(port, () => console.log('listen on port 3000'));
