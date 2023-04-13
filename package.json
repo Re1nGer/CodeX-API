@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "node .",
+    "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jaagrav Seal",
